@@ -1,142 +1,287 @@
-# EVENTSORTMING - E-COMMERCE
 
-O Event Storming (Tempestade de Eventos) é uma metodologia de *workshop* flexível e colaborativa, ideal para **modelar e-commerce**, um domínio de negócio intrinsecamente complexo.
+# Workshop: O Pipeline de Desenvolvimento de Games 3D
 
-A metodologia Event Storming não se limita a um único diagrama, mas sim a uma progressão de níveis que leva o entendimento do negócio à arquitetura de *software*. O modelo completo de e-commerce é tipicamente mapeado usando essa progressão, começando com o nível estratégico (*Big Picture*) para definir o escopo e as fronteiras.
+**Objetivo:** Mapear o fluxo de criação de um jogo 3D, identificando gargalos de processamento, regras de otimização e a emergência de comportamentos complexos.
 
-O modelo a seguir simula um **Big Picture (BPES)**, que foca na exploração de ponta a ponta do domínio, seguido pela aplicação dos conceitos do **Process Modeling (PLES)** para detalhar o fluxo central de pedido.
+## **Software Requirements Specification (SRS)**
 
-***
-
-## 1. Notação Fundamental do E-commerce (Linguagem Ubíqua)
-
-O Event Storming utiliza notas adesivas coloridas, onde cada cor representa um conceito específico no domínio de negócio.
-
-| Elemento | Cor Padrão | Função no E-commerce | Exemplo | Fontes |
-| :--- | :--- | :--- | :--- | :--- |
-| **Evento de Domínio** | Laranja (Orange) | Um fato relevante que **já ocorreu** (verbo no passado) e que é crucial para o negócio. | **Order Placed** (Pedido Realizado); **Payment Processed** (Pagamento Processado); **Order Shipped** (Pedido Enviado). | |
-| **Comando / Ação** | Azul (Blue) | A **intenção** ou solicitação de ação que causa um evento, tipicamente um *Verbo + Substantivo*. | **Place Order** (Fazer Pedido); **Process Payment** (Processar Pagamento); **Add to Cart** (Adicionar ao Carrinho). | |
-| **Ator / Pessoa** | Amarelo (Small Yellow) | A entidade (humana ou sistema) que **inicia** um Comando. | **Customer** (Cliente); **Warehouse Staff** (Funcionário do Armazém); **Sales Representative**. | |
-| **Sistema Externo** | Rosa (Pink) | Dependência ou serviço de terceiros tratado como **"caixa preta"** fora do controle direto do domínio modelado. | **Payment Gateway** (Stripe, PayPal); **Shipping Partner**; **Fraud Detection System**; **Tax Compliance Software**. | |
-| **Política** | Lilás/Roxo (Purple/Lilac) | Regra de negócio automatizada (ou manual) que **reage** a um Evento e dispara um novo Comando (o "cola" lógica). | *Se Order Placed, Tentar Fraud Check*. *Se Payment Processed, Reservar Inventory*. | |
-| **Aggregate** | Amarelo Claro / Tan | Uma **entidade de domínio** que executa o Comando, garantindo a consistência transacional. É a unidade fundamental de um Microsserviço. | **Order Aggregate**; **Inventory Aggregate**; **Customer Aggregate**. | |
-| **Read Model** | Verde (Green) | A **informação** que o Ator precisa ver para tomar uma decisão ou emitir um Comando (ex: uma lista, um relatório). | *Product attributes* (Atributos do Produto); *Reviews* (Avaliações); *Price* (Preço). | |
-| **Hot Spot** | Magenta / Vermelho | Áreas de **problemas, conflitos, gargalos** ou inconsistências que requerem atenção. | "Item é frequentemente perdido no armazém". | |
-
-## 2. Modelagem Estratégica: Ciclo de Vida do Pedido e Contextos Delimitados (Bounded Contexts)
-
-O Event Storming para e-commerce é tipicamente dividido em **Contextos Delimitados (BCs)**, que emergem da modelagem e se alinham aos microsserviços. O fluxo cronológico abaixo ilustra as interações entre esses contextos.
-
-### Contextos Delimitados Emergentes no E-commerce:
-
-| BC (Microsserviço) | Foco Principal |
-| :--- | :--- |
-| **Catalogue & Inventory** | Gestão de produtos, preços e disponibilidade de estoque. |
-| **Order Management** | Ciclo de vida do pedido (da colocação ao envio). |
-| **Payment & Billing** | Processamento financeiro, faturamento e conformidade fiscal. |
-| **Shipping & Logistics** | Coordenação com parceiros de entrega. |
-
-### Fluxo Detalhado do Pedido (Exemplo Combinado BPES/PLES)
-
-O fluxo principal (caminho feliz) de um e-commerce é uma sequência de Eventos (Laranja), Comandos (Azul) e reações (Políticas/Agregados) que atravessam estes contextos.
+**Título do Projeto: Game 3D – Aventuras no Mundo XYZ**
 
 ---
 
-### A. Contexto: Catálogo e Compra
+## **1. Introdução**
 
-O cliente interage com a loja antes de iniciar o processo de *checkout*.
+### **1.1 Propósito**
 
-| Etapa | Fluxo Event Storming | Elemento |
-| :--- | :--- | :--- |
-| **1. Navegação** | **Customer** | Ator (Yellow) |
-| | $\rightarrow$ | **Browse Product** | Comando (Blue) |
-| | **Visualização de Detalhes** | Read Model (Green) - Mostra *Product attributes, Price, Reviews* |
-| **2. Adição ao Carrinho** | **Customer** | Ator (Yellow) |
-| | $\rightarrow$ | **Add Item to Cart** | Comando (Blue) |
-| | **Cart Aggregate** | Aggregate (Tan/Yellow) |
-| | $\rightarrow$ | **Item Added to Cart** | Evento (Orange) |
+Este documento tem como objetivo definir de maneira completa e detalhada os requisitos funcionais e não funcionais do jogo 3D "Aventuras no Mundo XYZ". Ele serve como base para desenvolvedores, designers, equipe de QA e stakeholders envolvidos no projeto.
 
----
+### **1.2 Escopo**
 
-### B. Contexto: Gestão de Pedidos & Pagamento
+O sistema consiste em um jogo eletrônico 3D em que o jogador controla um personagem explorando um mundo aberto, realizando missões, interagindo com objetos, enfrentando inimigos e evoluindo no progresso da história. O jogo será desenvolvido utilizando uma engine 3D moderna (Unity ou Unreal Engine).
 
-Esta é a área mais complexa, envolvendo coordenação e sistemas externos.
+### **1.3 Definições, Acrônimos e Abreviações**
 
-| Etapa | Fluxo Event Storming | Elemento |
-| :--- | :--- | :--- |
-| **3. Fechamento do Pedido** | **Customer** | Ator (Yellow) |
-| | $\rightarrow$ | **Place Order** | Comando (Blue) |
-| | **Order Aggregate** | Aggregate (Tan/Yellow) - *Define o Pedido* |
-| | $\rightarrow$ | **Order Placed** | Evento (Orange) - *Sinaliza o início do processamento* |
-| **4. Verificação de Fraude** | **Order Placed** | Evento (Orange) |
-| | $\rightarrow$ | **Policy: *Verificar Fraude*** | Política (Purple) - *Regra de negócio automática* |
-| | $\rightarrow$ | **Request Fraud Check** | Comando (Blue) |
-| | **Fraud Detection System** | Sistema Externo (Pink) |
-| | $\rightarrow$ | **Fraud Check Completed** | Evento (Orange) |
-| **5. Processamento do Pagamento** | **Order Placed** | Evento (Orange) |
-| | $\rightarrow$ | **Policy: *Tentar Processar Pagamento*** | Política (Purple) |
-| | $\rightarrow$ | **Process Payment** | Comando (Blue) |
-| | **Payment Gateway** | Sistema Externo (Pink) |
-| | $\rightarrow$ | **Payment Processed** | Evento (Orange) |
+* **NPC** – Personagem não jogável.
+* **HUD** – Heads-Up Display (interface exibida ao jogador).
+* **IA** – Inteligência artificial.
+* **RF** – Requisito Funcional.
+* **RNF** – Requisito Não Funcional.
+* **SRS** – Software Requirements Specification.
 
 ---
 
-### C. Contexto: Inventário e Logística
+## **2. Descrição Geral**
 
-O fluxo se move para a reserva física e o envio, dependendo do sucesso da verificação de fraude e do pagamento.
+### **2.1 Perspectiva do Produto**
 
-| Etapa | Fluxo Event Storming | Elemento |
+O jogo é um sistema independente, com componentes internos como:
+
+* Gerenciador de Física
+* Gerenciador de Cena
+* Sistema de Inventário
+* Sistema de IA
+* Sistema de Missões
+* Motor de Renderização 3D
+
+### **2.2 Funções do Sistema**
+
+O sistema permitirá:
+
+* Controle total do personagem em 3D
+* Exploração do ambiente
+* Interação com objetos
+* Combate
+* Realização de missões
+* Gerenciamento de inventário
+* Salvamento e carregamento de progresso
+
+### **2.3 Usuários do Sistema**
+
+* **Jogadores iniciantes**
+* **Jogadores avançados**
+* **Testadores (QA)**
+* **Desenvolvedores**
+
+### **2.4 Restrições**
+
+* O jogo deve rodar em hardware mínimo pré-definido.
+* Deve seguir boas práticas de modelagem e otimização 3D.
+
+---
+
+## **3. Requisitos Funcionais**
+
+### **RF01 – Controle do Personagem**
+
+O sistema deve permitir ao jogador mover o personagem em todas as direções, pular, correr e realizar ações básicas.
+
+### **RF02 – Câmera 3D**
+
+A câmera deve acompanhar o personagem ou ser controlada pelo jogador através do mouse ou analógico.
+
+### **RF03 – Interação com Objetos**
+
+O sistema deve permitir que o jogador colete itens, abra portas, ative botões e interaja com elementos do ambiente.
+
+### **RF04 – Sistema de Inventário**
+
+O sistema deve armazenar, adicionar e remover itens coletados pelo jogador.
+
+### **RF05 – Combate**
+
+O sistema deve permitir que o jogador ataque, defenda-se e utilize habilidades quando em combate.
+
+### **RF06 – Inteligência Artificial (NPCs)**
+
+NPCs devem realizar ações como patrulhar, dialogar e reagir à presença do jogador.
+
+### **RF07 – Inimigos e IA Hostil**
+
+Inimigos devem ser capazes de detectar o jogador, perseguir e atacar.
+
+### **RF08 – Sistema de Missões**
+
+O jogo deve apresentar objetivos ao jogador, registrar progresso e desbloquear novas missões.
+
+### **RF09 – HUD e Painéis**
+
+A interface deve exibir vida, energia, minimapa, itens e notificações.
+
+### **RF10 – Sistema de Física**
+
+O sistema deve aplicar física realista ao personagem, objetos e ambiente.
+
+### **RF11 – Colisões**
+
+O jogo deve detectar colisões entre personagem, objetos, inimigos e cenários.
+
+### **RF12 – Áudio 3D**
+
+O sistema deve reproduzir sons de acordo com a distância e direção do jogador.
+
+### **RF13 – Sistema de Salvamento**
+
+O jogador deve poder salvar e carregar seu progresso.
+
+### **RF14 – Menu Principal e Ajustes**
+
+O jogo deve apresentar menu inicial, opções de áudio, vídeo, controles e saída.
+
+### **RF15 – Spawn de Objetos e Inimigos**
+
+O sistema deve permitir o surgimento de inimigos e itens conforme eventos do jogo.
+
+---
+
+## **4. Requisitos Não Funcionais**
+
+### **RNF01 – Desempenho**
+
+O jogo deve manter no mínimo 30 FPS em hardware mínimo.
+
+### **RNF02 – Usabilidade**
+
+A interface deve ser intuitiva e clara para o usuário.
+
+### **RNF03 – Confiabilidade**
+
+O sistema deve evitar falhas e permitir recuperação através do sistema de save.
+
+### **RNF04 – Portabilidade**
+
+O jogo deve rodar em Windows e plataformas adicionais opcionais (Linux, consoles).
+
+### **RNF05 – Segurança**
+
+Dados de save devem ser protegidos contra corrupção.
+
+### **RNF06 – Escalabilidade**
+
+O sistema deve permitir adição futura de mapas, personagens e missões.
+
+---
+
+## **5. Diagramas e Modelos (Opcional)**
+
+* Diagrama de Casos de Uso
+* Diagrama de Classes
+* Fluxo de Missões
+* Arquitetura do Sistema
+
+*(Pode ser adicionado mediante solicitação.)*
+
+---
+
+## **6. Critérios de Aceitação**
+
+* O jogador consegue iniciar, jogar e finalizar uma missão.
+* Toda interação essencial deve funcionar sem falhas.
+* O jogo deve carregar e salvar dados corretamente.
+* O combate deve ser funcional e equilibrado.
+* O desempenho mínimo deve ser atendido.
+
+---
+
+## **7. Versões do Documento**
+
+* **v1.0** – Documento inicial gerado
+
+** MODELAGEM DE UM GAME 3D**
+
+![Modelagem de game 3d](image/games_3d.png)
+
+---
+
+## PROCESSO DE ENVENT STORMING BIG PICTURE
+
+
+**Participantes (Atores):**
+* [cite_start]**Modelador 3D:** Responsável pela geometria[cite: 118].
+* [cite_start]**Texturizador:** Responsável pelo visual das superfícies[cite: 119].
+* [cite_start]**Animador:** Responsável pelo movimento e "peso"[cite: 135].
+* [cite_start]**Programador (Deus 1):** Controla as leis da física e regras explícitas[cite: 586].
+* [cite_start]**Programador de IA (Deus 2):** Define condições iniciais para emergência[cite: 594].
+
+---
+
+## 1. A Legenda (Adaptada ao Domínio)
+
+| Cor do Post-it | Conceito | Significado neste Workshop |
 | :--- | :--- | :--- |
-| **6. Reserva de Estoque** | **Payment Processed** e **Fraud Check Completed** | Eventos (Orange) |
-| | $\rightarrow$ | **Policy: *Reservar Inventário*** | Política (Purple) |
-| | $\rightarrow$ | **Reserve Inventory** | Comando (Blue) |
-| | **Inventory Aggregate** | Aggregate (Tan/Yellow) - *Garante consistência de estoque* |
-| | $\rightarrow$ | **Inventory Reserved** | Evento (Orange) |
-| **7. Preparação para Envio** | **Inventory Reserved** | Evento (Orange) |
-| | $\rightarrow$ | **Policy: *Preparar Pacote*** | Política (Purple) |
-| | $\rightarrow$ | **Package Order** | Comando (Blue) |
-| | **Warehouse Staff** | Ator (Yellow) |
-| | $\rightarrow$ | **Item Packaged** | Evento (Orange) |
-| **8. Envio** | **Item Packaged** | Evento (Orange) |
-| | $\rightarrow$ | **Policy: *Solicitar Envio*** | Política (Purple) |
-| | $\rightarrow$ | **Ship Order** | Comando (Blue) |
-| | **Shipping Partner** | Sistema Externo (Pink) |
-| | $\rightarrow$ | **Order Shipped** | Evento (Orange) |
-| **9. Conclusão** | **Shipping Partner** | Sistema Externo (Pink) |
-| | $\rightarrow$ | **Order Delivered** | Evento (Orange) - *Fato final do ciclo* |
+| **Laranja** | **Event** | Algo aconteceu no motor gráfico ou no processo. Ex: "Polígono Renderizado", "Colisão Detectada". |
+| **Azul** | **Command** | Ação do desenvolvedor ou do jogador. Ex: "Compilar Nível", "Mover Personagem". |
+| **Roxo** | **Policy** | Regras de otimização/física citadas no texto. Ex: "Se distante, reduzir triângulos". |
+| **Amarelo** | **Actor** | Quem executa (Modelador, Engine, Jogador). |
+| **Verde** | **Read Model** | O que vemos na tela (FPS, Glitches, Aliasing). |
 
-***
 
-## 3. Fluxo de Falha Crítico e Hot Spots (Pontos Quentes)
+---
 
-Um Event Storming completo deve mapear os cenários de falha (*edge cases*) e identificar problemas, utilizando *Hot Spots* (Magenta/Vermelho).
+## 2. A Linha do Tempo (The Flow)
 
-### Exemplo de Fluxo de Falha (Pagamento)
+Vamos dividir o quadro em quatro raias principais baseadas nos capítulos da dissertação: **Modelagem**, **Texturização**, **Animação** e **Comportamento Artificial**.
 
-O Event Storming permite modelar a **Consistência Eventual**, um princípio chave na arquitetura de microsserviços.
+### Raia 1: Modelagem e Otimização Geométrica
+*Foco: Como representar formas complexas gastando pouco processamento.*
 
-| Cenário | Fluxo Event Storming | Elemento |
-| :--- | :--- | :--- |
-| **Falha de Pagamento** | **Payment Gateway** (Pink) $\rightarrow$ **Payment Failed** | Evento (Orange) |
-| | **Payment Failed** $\rightarrow$ **Policy: *Compensar Falha*** | Política (Purple) - *Saga para garantir consistência* |
-| | $\rightarrow$ | **Cancel Order** | Comando (Blue) enviado ao *Order Aggregate* |
-| | $\rightarrow$ | **Release Inventory** | Comando (Blue) enviado ao *Inventory Aggregate* |
-| | **Order Aggregate** $\rightarrow$ **Order Cancelled** | Evento (Orange) |
-| | **Inventory Aggregate** $\rightarrow$ **Inventory Released** | Evento (Orange) |
+1.  [cite_start]**(Azul)** `Criar Esfera` $\rightarrow$ **(Roxo)** *Política de Eficiência:* Usar estrutura geodésica mantém a homogeneidade com menos triângulos[cite: 227, 229].
+2.  **(Laranja)** Modelo criado com baixo polígono.
+3.  [cite_start]**(Azul)** `Modelar Cilindro/Braço` $\rightarrow$ **(Roxo)** *Regra do Número Ímpar:* Cilindros com lados ímpares (ex: 3 ou 5) mantêm o volume visual melhor ao rotacionar do que lados pares[cite: 234, 238].
+4.  **(Laranja)** Objeto Renderizado na Tela.
+5.  [cite_start]**(Roxo)** *Política de Culling:* Se o objeto está fora do Fustrum (campo visual), não renderizar[cite: 270, 278].
+6.  **(Laranja)** Objeto removido do processamento.
+7.  [cite_start]**(Roxo)** *Política de LOD (Level of Detail):* Se o objeto está longe, trocar por modelo de baixa resolução[cite: 326].
 
-### Hot Spots e Complexidades (Magenta/Vermelho)
 
-Esses pontos representam áreas de incerteza, gargalos ou alto risco:
+---
 
-1.  **"Tax Compliance/Compliance Fiscal":** A complexidade de aderir às diversas leis tributárias é um desafio significativo no e-commerce. A Garantia de **cálculos de impostos precisos** e **arquivamentos oportunos** é crucial.
-2.  **"Prevenção de Fraude":** A detecção de padrões que podem levar a fraudes está sempre evoluindo, sendo necessário aprender com os "buracos" descobertos no passado.
-3.  **"Inconsistência de Preço":** A necessidade de garantir **regras e taxas consistentes** em todos os canais de vendas (e-commerce, *marketplaces*, ERP) para evitar insatisfação do cliente.
-4.  **"Gerenciamento de Inventário":** Inconsistências como itens declarados perdidos que reaparecem meses depois, ou a gestão de inventário em **múltiplos locais**.
+### Raia 2: Texturização e "O Mito da Resolução"
+*Foco: Qualidade visual versus memória.*
 
-## 4. Próximos Passos (Transição para Software Design)
+1.  **(Azul)** `Aplicar Textura 2048x2048` em objeto distante.
+2.  [cite_start]**(Laranja)** Erro de Aliasing (Cintilação) Detectado[cite: 401].
+3.  **(Verde)** Visualização: Imagem ruidosa e queda de performance.
+4.  [cite_start]**(Roxo)** *Lei da Resolução:* Texturas grandes em áreas pequenas da tela geram imagens piores devido à escolha arbitrária de pixels[cite: 400, 378].
+5.  [cite_start]**(Azul)** `Aplicar MIP Mapping` $\rightarrow$ **(Laranja)** Textura reduzida automaticamente conforme a distância[cite: 430].
+6.  [cite_start]**(Roxo)** *Técnica de Iluminação:* Usar texturas para simular relevos (dobras de roupa) sem criar novos polígonos[cite: 338].
 
-A visualização acima, após a validação e ordenação de eventos, permite que a equipe avance para os níveis mais detalhados:
 
-*   **Software Design Event Storming (DLES):** Neste nível, os **Agregados** (Tan/Yellow) são refinados. Por exemplo, o *Order Aggregate* seria isolado para garantir que todos os Comandos e Eventos que alteram o estado do pedido (ex: *Cancel Order*, *Order Placed*) sejam manipulados dentro de seus limites, garantindo a **consistência transacional** interna.
-*   **Design de Microsserviços:** Os **Contextos Delimitados** (BCs) identificados (Order Management, Payment & Billing, Inventory) tornam-se os **limites naturais** para os microsserviços, garantindo que cada serviço seja fracamente acoplado e alinhado com a lógica de negócio.
-*   **Design de API:** Os **Comandos** (Azul) servem como um ponto de partida para as operações da API, e os **Eventos** (Laranja) definem os contratos de comunicação entre os microsserviços na arquitetura orientada a eventos.
+---
+
+### Raia 3: Animação e Percepção
+*Foco: O movimento engana o cérebro.*
+
+1.  [cite_start]**(Verde)** Read Model: Modelo estático parece "feio" e angular[cite: 463].
+2.  **(Laranja)** Personagem começou a mover-se.
+3.  [cite_start]**(Roxo)** *Lei da Gestalt/Movimento:* O movimento delineia o objeto; a animação é mais crítica que a forma estática[cite: 472, 486].
+4.  **(Azul)** `Simular Impacto no Chão`.
+5.  [cite_start]**(Roxo)** *Técnica da Antecipação Invisível:* Dobrar o joelho ao contrário por 1 frame (erro intencional) cria a sensação de impacto/peso[cite: 554, 568].
+6.  [cite_start]**(Laranja)** Movimento percebido como realista pelo cérebro[cite: 562].
+
+
+---
+
+### Raia 4: Inteligência Artificial e Emergência
+*Foco: Programação explícita vs. Comportamento Emergente.*
+
+1.  [cite_start]**(Azul)** `Definir Regra Simples`: "Se perto do amigo, agrupar. Se longe, atacar"[cite: 708].
+2.  **(Laranja)** Soldados entram em loop de movimento.
+3.  [cite_start]**(Laranja)** Comportamento Emergente: Soldados começam a "dançar" em círculos (efeito não planejado)[cite: 718].
+4.  [cite_start]**(Azul)** `Aplicar Algoritmo Genético` (Tanque de Simulação)[cite: 766].
+5.  [cite_start]**(Roxo)** *Função de Avaliação:* Maximizar Sobrevivência[cite: 800].
+6.  [cite_start]**(Laranja)** Resultado da Evolução: Personagens covardes que fogem e se escondem perfeitamente (comportamento "barata")[cite: 802, 805].
+7.  **(Azul)** `Ajustar Função de Avaliação` para maximizar dano + sobrevivência.
+
+---
+
+## 3. Diagrama de Fluxo Geral (Mapa do Processo)
+
+Para finalizar o workshop, pode-se apresentar o mapa de processo utilizado pela própria *Perceptum Software*, que conecta todas essas raias.
+
+
+[cite_start]Este diagrama [cite: 95] serve como o "Big Picture" final, mostrando como o **Design Doc** alimenta a modelagem e programação, que passam por integração e testes, onde os eventos de "Aliasing", "Baixa Performance" ou "Comportamento Estranho da IA" forçam o retorno às fases anteriores (Feedbacks Loops).
+
+### Perguntas para provocar a discussão (Hot Spots):
+* *Onde estamos gastando processamento inutilmente? (Modelos com muitos polígonos fora do Fustrum?)*
+* *Nossa "Realidade" está convincente? (Precisamos melhorar a forma ou apenas a animação?)*
+* *Estamos tentando programar tudo explicitamente ou permitindo comportamentos emergentes na IA?*
