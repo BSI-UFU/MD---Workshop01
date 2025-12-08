@@ -179,96 +179,8 @@ O sistema deve permitir adição futura de mapas, personagens e missões.
 
 ## **7. Versões do Documento**
 
+* **v1.0** – Documento inicial gerado
 
----
-
-## **PROCESSO DE EVENT STORMING BIG PICTURE**
-
-**Participantes (Atores):**
-* **Modelador 3D:** Responsável pela geometria.
-* **Texturizador:** Responsável pelo visual das superfícies.
-* **Animador:** Responsável pelo movimento e "peso".
-* **Programador (Deus 1):** Controla as leis da física e regras explícitas.
-* **Programador de IA (Deus 2):** Define condições iniciais para emergência.
-
----
-
-## 1. A Legenda (Adaptada ao Domínio)
-
-| Cor do Post-it | Conceito | Significado neste Workshop |
-| :--- | :--- | :--- |
-| **Laranja** | **Event** | Algo aconteceu no motor gráfico ou no processo. Ex: "Polígono Renderizado", "Colisão Detectada". |
-| **Azul** | **Command** | Ação do desenvolvedor ou do jogador. Ex: "Compilar Nível", "Mover Personagem". |
-| **Roxo** | **Policy** | Regras de otimização/física citadas no texto. Ex: "Se distante, reduzir triângulos". |
-| **Amarelo** | **Actor** | Quem executa (Modelador, Engine, Jogador). |
-| **Verde** | **Read Model** | O que vemos na tela (FPS, Glitches, Aliasing). |
-
----
-
-## 2. A Linha do Tempo (The Flow)
-
-Vamos dividir o quadro em quatro raias principais baseadas nos capítulos da dissertação: **Modelagem**, **Texturização**, **Animação** e **Comportamento Artificial**.
-
-### Raia 1: Modelagem e Otimização Geométrica
-*Foco: Como representar formas complexas gastando pouco processamento.*
-
-1. **(Azul)** `Criar Esfera` → **(Roxo)** *Política de Eficiência:* Usar estrutura geodésica mantém a homogeneidade com menos triângulos.
-2. **(Laranja)** Modelo criado com baixo polígono.
-3. **(Azul)** `Modelar Cilindro/Braço` → **(Roxo)** *Regra do Número Ímpar:* Cilindros com lados ímpares (ex: 3 ou 5) mantêm o volume visual melhor ao rotacionar do que lados pares.
-4. **(Laranja)** Objeto Renderizado na Tela.
-5. **(Roxo)** *Política de Culling:* Se o objeto está fora do Fustrum (campo visual), não renderizar.
-6. **(Laranja)** Objeto removido do processamento.
-7. **(Roxo)** *Política de LOD (Level of Detail):* Se o objeto está longe, trocar por modelo de baixa resolução.
-
----
-
-### Raia 2: Texturização e "O Mito da Resolução"
-*Foco: Qualidade visual versus memória.*
-
-1. **(Azul)** `Aplicar Textura 2048x2048` em objeto distante.
-2. **(Laranja)** Erro de Aliasing (Cintilação) Detectado.
-3. **(Verde)** Visualização: Imagem ruidosa e queda de performance.
-4. **(Roxo)** *Lei da Resolução:* Texturas grandes em áreas pequenas da tela geram imagens piores devido à escolha arbitrária de pixels.
-5. **(Azul)** `Aplicar MIP Mapping` → **(Laranja)** Textura reduzida automaticamente conforme a distância.
-6. **(Roxo)** *Técnica de Iluminação:* Usar texturas para simular relevos (dobras de roupa) sem criar novos polígonos.
-
----
-
-### Raia 3: Animação e Percepção
-*Foco: O movimento engana o cérebro.*
-
-1. **(Verde)** Read Model: Modelo estático parece "feio" e angular.
-2. **(Laranja)** Personagem começou a mover-se.
-3. **(Roxo)** *Lei da Gestalt/Movimento:* O movimento delineia o objeto; a animação é mais crítica que a forma estática.
-4. **(Azul)** `Simular Impacto no Chão`.
-5. **(Roxo)** *Técnica da Antecipação Invisível:* Dobrar o joelho ao contrário por 1 frame (erro intencional) cria a sensação de impacto/peso.
-6. **(Laranja)** Movimento percebido como realista pelo cérebro.
-
----
-
-### Raia 4: Inteligência Artificial e Emergência
-*Foco: Programação explícita vs. Comportamento Emergente.*
-
-1. **(Azul)** `Definir Regra Simples`: "Se perto do amigo, agrupar. Se longe, atacar".
-2. **(Laranja)** Soldados entram em loop de movimento.
-3. **(Laranja)** Comportamento Emergente: Soldados começam a "dançar" em círculos (efeito não planejado).
-4. **(Azul)** `Aplicar Algoritmo Genético` (Tanque de Simulação).
-5. **(Roxo)** *Função de Avaliação:* Maximizar Sobrevivência.
-6. **(Laranja)** Resultado da Evolução: Personagens covardes que fogem e se escondem perfeitamente (comportamento "barata").
-7. **(Azul)** `Ajustar Função de Avaliação` para maximizar dano + sobrevivência.
-
----
-
-## 3. Diagrama de Fluxo Geral (Mapa do Processo)
-
-Para finalizar o workshop, pode-se apresentar o mapa de processo utilizado pela própria *Perceptum Software*, que conecta todas essas raias.
-
-Este diagrama serve como o "Big Picture" final, mostrando como o **Design Doc** alimenta a modelagem e programação, que passam por integração e testes, onde os eventos de "Aliasing", "Baixa Performance" ou "Comportamento Estranho da IA" forçam o retorno às fases anteriores (Feedbacks Loops).
-
-### Perguntas para provocar a discussão (Hot Spots):
-* *Onde estamos gastando processamento inutilmente? (Modelos com muitos polígonos fora do Fustrum?)*
-* *Nossa "Realidade" está convincente? (Precisamos melhorar a forma ou apenas a animação?)*
-* *Estamos tentando programar tudo explicitamente ou permitindo comportamentos emergentes na IA?*
 ---
 
 # 🕒 Workshop: Event Storming Big Picture – Game 3D "Aventuras no Mundo XYZ"
@@ -322,8 +234,7 @@ Antes de iniciar o cronômetro, certifique-se de que a **Legenda** esteja visív
 
 
 
-[Image of game loop flow chart]
-
+![Image of game loop flow chart](image/game_loop.png)
 
 ### 4. Comandos e Atores (25:00 - 35:00)
 **Instrução:** "O que gatilha esses eventos? Quem faz isso acontecer?"
