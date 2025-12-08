@@ -1,8 +1,3 @@
-
-# Workshop: O Pipeline de Desenvolvimento de Games 3D
-
-**Objetivo:** Mapear o fluxo de criação de um jogo 3D, identificando gargalos de processamento, regras de otimização e a emergência de comportamentos complexos.
-
 ## **Software Requirements Specification (SRS)**
 
 **Título do Projeto: Game 3D – Aventuras no Mundo XYZ**
@@ -48,7 +43,7 @@ O jogo é um sistema independente, com componentes internos como:
 O sistema permitirá:
 
 * Controle total do personagem em 3D
-* Exploração do ambiente
+* Exploração do ambiente
 * Interação com objetos
 * Combate
 * Realização de missões
@@ -184,19 +179,17 @@ O sistema deve permitir adição futura de mapas, personagens e missões.
 
 ## **7. Versões do Documento**
 
-* **v1.0** – Documento inicial gerado
 
 ---
 
-## PROCESSO DE ENVENT STORMING BIG PICTURE
-
+## **PROCESSO DE EVENT STORMING BIG PICTURE**
 
 **Participantes (Atores):**
-* [cite_start]**Modelador 3D:** Responsável pela geometria[cite: 118].
-* [cite_start]**Texturizador:** Responsável pelo visual das superfícies[cite: 119].
-* [cite_start]**Animador:** Responsável pelo movimento e "peso"[cite: 135].
-* [cite_start]**Programador (Deus 1):** Controla as leis da física e regras explícitas[cite: 586].
-* [cite_start]**Programador de IA (Deus 2):** Define condições iniciais para emergência[cite: 594].
+* **Modelador 3D:** Responsável pela geometria.
+* **Texturizador:** Responsável pelo visual das superfícies.
+* **Animador:** Responsável pelo movimento e "peso".
+* **Programador (Deus 1):** Controla as leis da física e regras explícitas.
+* **Programador de IA (Deus 2):** Define condições iniciais para emergência.
 
 ---
 
@@ -210,7 +203,6 @@ O sistema deve permitir adição futura de mapas, personagens e missões.
 | **Amarelo** | **Actor** | Quem executa (Modelador, Engine, Jogador). |
 | **Verde** | **Read Model** | O que vemos na tela (FPS, Glitches, Aliasing). |
 
-
 ---
 
 ## 2. A Linha do Tempo (The Flow)
@@ -220,53 +212,50 @@ Vamos dividir o quadro em quatro raias principais baseadas nos capítulos da dis
 ### Raia 1: Modelagem e Otimização Geométrica
 *Foco: Como representar formas complexas gastando pouco processamento.*
 
-1.  [cite_start]**(Azul)** `Criar Esfera` $\rightarrow$ **(Roxo)** *Política de Eficiência:* Usar estrutura geodésica mantém a homogeneidade com menos triângulos[cite: 227, 229].
-2.  **(Laranja)** Modelo criado com baixo polígono.
-3.  [cite_start]**(Azul)** `Modelar Cilindro/Braço` $\rightarrow$ **(Roxo)** *Regra do Número Ímpar:* Cilindros com lados ímpares (ex: 3 ou 5) mantêm o volume visual melhor ao rotacionar do que lados pares[cite: 234, 238].
-4.  **(Laranja)** Objeto Renderizado na Tela.
-5.  [cite_start]**(Roxo)** *Política de Culling:* Se o objeto está fora do Fustrum (campo visual), não renderizar[cite: 270, 278].
-6.  **(Laranja)** Objeto removido do processamento.
-7.  [cite_start]**(Roxo)** *Política de LOD (Level of Detail):* Se o objeto está longe, trocar por modelo de baixa resolução[cite: 326].
-
+1. **(Azul)** `Criar Esfera` → **(Roxo)** *Política de Eficiência:* Usar estrutura geodésica mantém a homogeneidade com menos triângulos.
+2. **(Laranja)** Modelo criado com baixo polígono.
+3. **(Azul)** `Modelar Cilindro/Braço` → **(Roxo)** *Regra do Número Ímpar:* Cilindros com lados ímpares (ex: 3 ou 5) mantêm o volume visual melhor ao rotacionar do que lados pares.
+4. **(Laranja)** Objeto Renderizado na Tela.
+5. **(Roxo)** *Política de Culling:* Se o objeto está fora do Fustrum (campo visual), não renderizar.
+6. **(Laranja)** Objeto removido do processamento.
+7. **(Roxo)** *Política de LOD (Level of Detail):* Se o objeto está longe, trocar por modelo de baixa resolução.
 
 ---
 
 ### Raia 2: Texturização e "O Mito da Resolução"
 *Foco: Qualidade visual versus memória.*
 
-1.  **(Azul)** `Aplicar Textura 2048x2048` em objeto distante.
-2.  [cite_start]**(Laranja)** Erro de Aliasing (Cintilação) Detectado[cite: 401].
-3.  **(Verde)** Visualização: Imagem ruidosa e queda de performance.
-4.  [cite_start]**(Roxo)** *Lei da Resolução:* Texturas grandes em áreas pequenas da tela geram imagens piores devido à escolha arbitrária de pixels[cite: 400, 378].
-5.  [cite_start]**(Azul)** `Aplicar MIP Mapping` $\rightarrow$ **(Laranja)** Textura reduzida automaticamente conforme a distância[cite: 430].
-6.  [cite_start]**(Roxo)** *Técnica de Iluminação:* Usar texturas para simular relevos (dobras de roupa) sem criar novos polígonos[cite: 338].
-
+1. **(Azul)** `Aplicar Textura 2048x2048` em objeto distante.
+2. **(Laranja)** Erro de Aliasing (Cintilação) Detectado.
+3. **(Verde)** Visualização: Imagem ruidosa e queda de performance.
+4. **(Roxo)** *Lei da Resolução:* Texturas grandes em áreas pequenas da tela geram imagens piores devido à escolha arbitrária de pixels.
+5. **(Azul)** `Aplicar MIP Mapping` → **(Laranja)** Textura reduzida automaticamente conforme a distância.
+6. **(Roxo)** *Técnica de Iluminação:* Usar texturas para simular relevos (dobras de roupa) sem criar novos polígonos.
 
 ---
 
 ### Raia 3: Animação e Percepção
 *Foco: O movimento engana o cérebro.*
 
-1.  ![cite_start]**(Verde)** Read Model: Modelo estático parece "feio" e angular[cite: 463].
-2.  **(Laranja)** Personagem começou a mover-se.
-3.  ![cite_start]**(Roxo)** *Lei da Gestalt/Movimento:* O movimento delineia o objeto; a animação é mais crítica que a forma estática[cite: 472, 486].
-4.  **(Azul)** `Simular Impacto no Chão`.
-5.  ![cite_start]**(Roxo)** *Técnica da Antecipação Invisível:* Dobrar o joelho ao contrário por 1 frame (erro intencional) cria a sensação de impacto/peso[cite: 554, 568].
-6.  ![cite_start]**(Laranja)** Movimento percebido como realista pelo cérebro[cite: 562].
-
+1. **(Verde)** Read Model: Modelo estático parece "feio" e angular.
+2. **(Laranja)** Personagem começou a mover-se.
+3. **(Roxo)** *Lei da Gestalt/Movimento:* O movimento delineia o objeto; a animação é mais crítica que a forma estática.
+4. **(Azul)** `Simular Impacto no Chão`.
+5. **(Roxo)** *Técnica da Antecipação Invisível:* Dobrar o joelho ao contrário por 1 frame (erro intencional) cria a sensação de impacto/peso.
+6. **(Laranja)** Movimento percebido como realista pelo cérebro.
 
 ---
 
 ### Raia 4: Inteligência Artificial e Emergência
 *Foco: Programação explícita vs. Comportamento Emergente.*
 
-1.  ![cite_start]**(Azul)** `Definir Regra Simples`: "Se perto do amigo, agrupar. Se longe, atacar"[cite: 708].
-2.  **(Laranja)** Soldados entram em loop de movimento.
-3.  ![cite_start]**(Laranja)** Comportamento Emergente: Soldados começam a "dançar" em círculos (efeito não planejado)[cite: 718].
-4.  ![cite_start]**(Azul)** `Aplicar Algoritmo Genético` (Tanque de Simulação)[cite: 766].
-5.  ![cite_start]**(Roxo)** *Função de Avaliação:* Maximizar Sobrevivência[cite: 800].
-6.  ![cite_start]**(Laranja)** Resultado da Evolução: Personagens covardes que fogem e se escondem perfeitamente (comportamento "barata")[cite: 802, 805].
-7.  **(Azul)** `Ajustar Função de Avaliação` para maximizar dano + sobrevivência.
+1. **(Azul)** `Definir Regra Simples`: "Se perto do amigo, agrupar. Se longe, atacar".
+2. **(Laranja)** Soldados entram em loop de movimento.
+3. **(Laranja)** Comportamento Emergente: Soldados começam a "dançar" em círculos (efeito não planejado).
+4. **(Azul)** `Aplicar Algoritmo Genético` (Tanque de Simulação).
+5. **(Roxo)** *Função de Avaliação:* Maximizar Sobrevivência.
+6. **(Laranja)** Resultado da Evolução: Personagens covardes que fogem e se escondem perfeitamente (comportamento "barata").
+7. **(Azul)** `Ajustar Função de Avaliação` para maximizar dano + sobrevivência.
 
 ---
 
@@ -274,14 +263,111 @@ Vamos dividir o quadro em quatro raias principais baseadas nos capítulos da dis
 
 Para finalizar o workshop, pode-se apresentar o mapa de processo utilizado pela própria *Perceptum Software*, que conecta todas essas raias.
 
-
-[cite_start]Este diagrama [cite: 95] serve como o "Big Picture" final, mostrando como o **Design Doc** alimenta a modelagem e programação, que passam por integração e testes, onde os eventos de "Aliasing", "Baixa Performance" ou "Comportamento Estranho da IA" forçam o retorno às fases anteriores (Feedbacks Loops).
+Este diagrama serve como o "Big Picture" final, mostrando como o **Design Doc** alimenta a modelagem e programação, que passam por integração e testes, onde os eventos de "Aliasing", "Baixa Performance" ou "Comportamento Estranho da IA" forçam o retorno às fases anteriores (Feedbacks Loops).
 
 ### Perguntas para provocar a discussão (Hot Spots):
 * *Onde estamos gastando processamento inutilmente? (Modelos com muitos polígonos fora do Fustrum?)*
 * *Nossa "Realidade" está convincente? (Precisamos melhorar a forma ou apenas a animação?)*
 * *Estamos tentando programar tudo explicitamente ou permitindo comportamentos emergentes na IA?*
+---
 
-> **MODELAGEM DE UM GAME 3D**
+# 🕒 Workshop: Event Storming Big Picture – Game 3D "Aventuras no Mundo XYZ"
+**Objetivo:** Mapear o fluxo principal de gameplay e as reações do sistema para validar os Requisitos Funcionais (RF) e identificar gargalos (Hot Spots).
+**Duração:** 50 Minutos.
+**Participantes Sugeridos:** Game Designers, Devs (Gameplay & Engine), QA, Stakeholders.
 
-![Modelagem de game 3d](image/games_3d.png)
+---
+
+## 🛠️ Preparação (Pré-Workshop)
+Antes de iniciar o cronômetro, certifique-se de que a **Legenda** esteja visível para todos (no quadro branco ou ferramenta online como Miro/Mural).
+
+**Legenda do Domínio (Conforme fornecido):**
+* 🟧 **Evento (Laranja):** Fato ocorrido (Verbo no passado). Ex: `Inimigo Derrotado`.
+* 🟦 **Comando (Azul):** Ação/Intenção do usuário ou sistema. Ex: `Atacar Inimigo`.
+* 🟨 **Ator (Amarelo):** Quem executa (Jogador, NPC, Sistema de Física).
+* 🟩 **Read Model (Verde):** O que é visto na tela (HUD, Inventário).
+* 🟪 **Política (Roxo):** Regra de negócio/lógica (Se X, então Y).
+* 🔴 **Hot Spot (Vermelho):** Risco, dúvida ou problema.
+
+
+
+---
+
+## 🚀 Etapas do Workshop (Cronograma)
+
+### 1. Contextualização Rápida (00:00 - 05:00)
+**Ação:** O facilitador lê o **Escopo (1.2)** e os **Objetivos**.
+**Foco:** Deixar claro que estamos modelando a experiência de "Explorar -> Combater -> Evoluir".
+**Instrução:** "Não vamos debater código agora (classes C++ ou C#), vamos debater o *comportamento* do jogo."
+
+### 2. Chaotic Exploration: Eventos de Domínio (05:00 - 15:00)
+**Técnica:** Brainstorming Silencioso + Colagem.
+**Instrução:** "Baseado no SRS, escrevam em post-its laranjas tudo o que acontece no jogo **no passado**. O que o sistema registra?"
+
+**Mapeamento com a SRS:**
+* *Jogadores:* `Jogo Iniciado`, `Missão Aceita` (RF08), `Item Coletado` (RF03), `Dano Recebido`.
+* *Sistema:* `Colisão Detectada` (RF11), `Jogo Salvo` (RF13), `Inimigo Spawnado` (RF15).
+
+> **Dica do Facilitador:** Se alguém escrever "Atacar", corrija para "Dano Causado" ou "Ataque Realizado". Eventos são fatos consumados.
+
+### 3. Enforce the Timeline: Ordenação Temporal (15:00 - 25:00)
+**Ação:** Organizar os post-its laranjas em uma linha do tempo lógica da esquerda para a direita.
+**Estrutura da Raia (Gameplay Loop):**
+1.  **Start:** Menu / Carregamento (RF14).
+2.  **Exploração:** Movimentação e Física (RF01, RF10).
+3.  **Encontro:** Detecção de Inimigo (RF07).
+4.  **Combate:** Troca de danos (RF05).
+5.  **Recompensa:** Loot / Inventário (RF04).
+6.  **Desfecho:** Save / Missão Concluída.
+
+
+
+[Image of game loop flow chart]
+
+
+### 4. Comandos e Atores (25:00 - 35:00)
+**Instrução:** "O que gatilha esses eventos? Quem faz isso acontecer?"
+**Ação:** Adicionar post-its **Azuis (Comandos)** e **Amarelos (Atores)** antes dos eventos.
+
+* **Exemplo de Fluxo (Combate - RF05):**
+    * 🟨 **Ator:** Jogador
+    * 🟦 **Comando:** `Pressionar Botão de Ataque`
+    * 🟧 **Evento:** `Animação de Ataque Iniciada` -> `Colisão Detectada` (RF11) -> `Dano Calculado`.
+
+* **Exemplo de Fluxo (IA - RF06):**
+    * 🟨 **Ator:** NPC Hostil
+    * 🟦 **Comando:** `Detectar Jogador` (Trigger automático)
+    * 🟧 **Evento:** `Modo Perseguição Ativado`.
+
+### 5. Políticas e Modelos de Leitura (35:00 - 45:00)
+**Instrução:** "Como o jogador sabe o que está acontecendo (Read Model)? E quais regras governam isso (Políticas)?"
+**Ação:** Adicionar post-its **Verdes** e **Roxos**.
+
+* **RF09 (HUD):** Após o evento `Dano Recebido`, adicionamos o Read Model 🟩 `Barra de Vida Atualizada`.
+* **RF04 (Inventário):** Entre o comando `Coletar Item` e o evento `Item Adicionado`, existe uma Política 🟪: *"O inventário possui espaço?"*.
+* **RNF01 (Desempenho):** Política 🟪 *"Se houver muitos inimigos (RF15), aplicar culling ou reduzir IA"* (Link com o texto do processo de "Deus 1 e Deus 2").
+
+### 6. Review e Hot Spots (45:00 - 50:00)
+**Ação:** Caminhar do início ao fim do fluxo e marcar problemas com post-its **Vermelhos** 🔴.
+
+**Perguntas de Verificação (Baseadas nos Critérios de Aceitação):**
+1.  *Onde o jogo pode travar (Crash)?* (RNF03)
+2.  *O fluxo de Missão (RF08) está claro ou o jogador fica perdido?*
+3.  *Existe conflito entre a Física (RF10) e o Combate (RF05)?*
+4.  *O Save (RF13) salva o estado exato da missão ou apenas a posição?*
+
+---
+
+## Exemplo Prático do Resultado Final (Trecho do Quadro)
+
+Aqui está como um trecho do quadro deve se parecer ao final dos 50 minutos, focado no **Combate (RF05)** e **Física (RF10)**:
+
+| Ator 🟨 | Comando 🟦 | Política 🟪 | Evento 🟧 | Read Model 🟩 |
+| :--- | :--- | :--- | :--- | :--- |
+| **Jogador** | `Mover para frente` | *Física Realista (RF10)* | `Posição Atualizada` | `Câmera Ajustada` (RF02) |
+| **Inimigo** | `Detectar Jogador` | *Raio de Visão < 10m* | `Jogador Detectado` | `Ícone de Alerta no HUD` |
+| **Jogador** | `Atacar` | *Cooldown da Arma zerado?* | `Dano Causado` | `Barra de Vida Inimigo -10` |
+| **Sistema** | `Verificar Vida` | *Se Vida <= 0* | `Inimigo Morto` | `Loot Dropado` (RF15) |
+
+---
+
