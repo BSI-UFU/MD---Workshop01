@@ -186,10 +186,6 @@ O sistema deve permitir adição futura de mapas, personagens e missões.
 
 * **v1.0** – Documento inicial gerado
 
-** MODELAGEM DE UM GAME 3D**
-
-![Modelagem de game 3d](image/games_3d.png)
-
 ---
 
 ## PROCESSO DE ENVENT STORMING BIG PICTURE
@@ -251,12 +247,12 @@ Vamos dividir o quadro em quatro raias principais baseadas nos capítulos da dis
 ### Raia 3: Animação e Percepção
 *Foco: O movimento engana o cérebro.*
 
-1.  [cite_start]**(Verde)** Read Model: Modelo estático parece "feio" e angular[cite: 463].
+1.  ![cite_start]**(Verde)** Read Model: Modelo estático parece "feio" e angular[cite: 463].
 2.  **(Laranja)** Personagem começou a mover-se.
-3.  [cite_start]**(Roxo)** *Lei da Gestalt/Movimento:* O movimento delineia o objeto; a animação é mais crítica que a forma estática[cite: 472, 486].
+3.  ![cite_start]**(Roxo)** *Lei da Gestalt/Movimento:* O movimento delineia o objeto; a animação é mais crítica que a forma estática[cite: 472, 486].
 4.  **(Azul)** `Simular Impacto no Chão`.
-5.  [cite_start]**(Roxo)** *Técnica da Antecipação Invisível:* Dobrar o joelho ao contrário por 1 frame (erro intencional) cria a sensação de impacto/peso[cite: 554, 568].
-6.  [cite_start]**(Laranja)** Movimento percebido como realista pelo cérebro[cite: 562].
+5.  ![cite_start]**(Roxo)** *Técnica da Antecipação Invisível:* Dobrar o joelho ao contrário por 1 frame (erro intencional) cria a sensação de impacto/peso[cite: 554, 568].
+6.  ![cite_start]**(Laranja)** Movimento percebido como realista pelo cérebro[cite: 562].
 
 
 ---
@@ -264,12 +260,12 @@ Vamos dividir o quadro em quatro raias principais baseadas nos capítulos da dis
 ### Raia 4: Inteligência Artificial e Emergência
 *Foco: Programação explícita vs. Comportamento Emergente.*
 
-1.  [cite_start]**(Azul)** `Definir Regra Simples`: "Se perto do amigo, agrupar. Se longe, atacar"[cite: 708].
+1.  ![cite_start]**(Azul)** `Definir Regra Simples`: "Se perto do amigo, agrupar. Se longe, atacar"[cite: 708].
 2.  **(Laranja)** Soldados entram em loop de movimento.
-3.  [cite_start]**(Laranja)** Comportamento Emergente: Soldados começam a "dançar" em círculos (efeito não planejado)[cite: 718].
-4.  [cite_start]**(Azul)** `Aplicar Algoritmo Genético` (Tanque de Simulação)[cite: 766].
-5.  [cite_start]**(Roxo)** *Função de Avaliação:* Maximizar Sobrevivência[cite: 800].
-6.  [cite_start]**(Laranja)** Resultado da Evolução: Personagens covardes que fogem e se escondem perfeitamente (comportamento "barata")[cite: 802, 805].
+3.  ![cite_start]**(Laranja)** Comportamento Emergente: Soldados começam a "dançar" em círculos (efeito não planejado)[cite: 718].
+4.  ![cite_start]**(Azul)** `Aplicar Algoritmo Genético` (Tanque de Simulação)[cite: 766].
+5.  ![cite_start]**(Roxo)** *Função de Avaliação:* Maximizar Sobrevivência[cite: 800].
+6.  ![cite_start]**(Laranja)** Resultado da Evolução: Personagens covardes que fogem e se escondem perfeitamente (comportamento "barata")[cite: 802, 805].
 7.  **(Azul)** `Ajustar Função de Avaliação` para maximizar dano + sobrevivência.
 
 ---
@@ -285,3 +281,7 @@ Para finalizar o workshop, pode-se apresentar o mapa de processo utilizado pela 
 * *Onde estamos gastando processamento inutilmente? (Modelos com muitos polígonos fora do Fustrum?)*
 * *Nossa "Realidade" está convincente? (Precisamos melhorar a forma ou apenas a animação?)*
 * *Estamos tentando programar tudo explicitamente ou permitindo comportamentos emergentes na IA?*
+
+> **MODELAGEM DE UM GAME 3D**
+
+![Modelagem de game 3d](image/games_3d.png)
