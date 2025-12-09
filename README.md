@@ -1,284 +1,237 @@
-## **Software Requirements Specification (SRS)**
 
-**Título do Projeto: Game 3D – Aventuras no Mundo XYZ**
+
+# 🧩 Contexto da Modelagem de Domínio com Event Storming Big Picture
+
+O diretor de TI de um supermercado deseja implantar um software que realize a **gestão de vendas, compras, estoques e informações gerenciais**. Porém, para que o sistema reflita fielmente a rotina operacional do supermercado, o diretor decidiu realizar uma **modelagem de domínio** antes da implementação.
+
+Para essa atividade, foi escolhida a metodologia **Event Storming Big Picture**, que permite compreender de forma colaborativa todos os processos do negócio. Cada setor do supermercado cedeu um funcionário para participar da modelagem (conforme o layout do supermercado).
+
+Sabe-se que o objetivo de todo negócio é **obter lucro**, e para isso todas as seções devem trabalhar **de forma sincronizada**, garantindo que:
+
+* os produtos estejam **disponíveis para venda**;
+* estejam dentro do **prazo de validade**;
+* o fluxo de informações entre setores seja consistente e claro.
+
+## Layout do Supermercado
+
+![Layout do Supermercado](image/layout_supermercado.md)
+
+Essa modelagem ajudará a identificar eventos de domínio, problemas, riscos e oportunidades de melhoria, fornecendo uma base sólida para que o novo software seja alinhado às necessidades reais do supermercado.
+
+---
+---
+
+# 🟧 **Workshop Completo – Event Storming Big Picture (50 minutos)**
+
+### **Modelagem do Domínio para Sistema de Gestão de Supermercado**
+
+## 🎯 **Objetivo Geral**
+
+Mapear o fluxo de valor do supermercado (vendas, compras, estoques e informações gerenciais) usando Event Storming Big Picture, identificando **Eventos de Domínio**, **Atores**, **Sistemas Externos** e **Hotspots**, para que o novo software reflita a operação real do supermercado.
 
 ---
 
-## **1. Introdução**
-
-### **1.1 Propósito**
-
-Este documento tem como objetivo definir de maneira completa e detalhada os requisitos funcionais e não funcionais do jogo 3D "Aventuras no Mundo XYZ". Ele serve como base para desenvolvedores, designers, equipe de QA e stakeholders envolvidos no projeto.
-
-### **1.2 Escopo**
-
-O sistema consiste em um jogo eletrônico 3D em que o jogador controla um personagem explorando um mundo aberto, realizando missões, interagindo com objetos, enfrentando inimigos e evoluindo no progresso da história. O jogo será desenvolvido utilizando uma engine 3D moderna (Unity ou Unreal Engine).
-
-### **1.3 Definições, Acrônimos e Abreviações**
-
-* **NPC** – Personagem não jogável.
-* **HUD** – Heads-Up Display (interface exibida ao jogador).
-* **IA** – Inteligência artificial.
-* **RF** – Requisito Funcional.
-* **RNF** – Requisito Não Funcional.
-* **SRS** – Software Requirements Specification.
+# ⏱️ **Agenda de 50 Minutos (Estruturada e Prática)**
 
 ---
 
-## **2. Descrição Geral**
+## **0 – 5 min | Abertura e Alinhamento**
 
-### **2.1 Perspectiva do Produto**
+### 🎙️ *Atividades*
 
-O jogo é um sistema independente, com componentes internos como:
+* Apresentação do facilitador e dos objetivos do workshop.
+* Explicação do propósito: compreender o funcionamento real do supermercado antes de desenvolver o software.
+* Regras básicas da técnica:
 
-* Gerenciador de Física
-* Gerenciador de Cena
-* Sistema de Inventário
-* Sistema de IA
-* Sistema de Missões
-* Motor de Renderização 3D
+  * Post-it **laranja** = Evento de Domínio.
+  * Post-it **azul** = Atores / Sistemas.
+  * Post-it **vermelho/rosa** = Hotspots (problemas, dúvidas, riscos).
+  * Todos participam, ninguém discute agora.
 
-### **2.2 Funções do Sistema**
+### 🎯 *Resultados esperados*
 
-O sistema permitirá:
-
-* Controle total do personagem em 3D
-* Exploração do ambiente
-* Interação com objetos
-* Combate
-* Realização de missões
-* Gerenciamento de inventário
-* Salvamento e carregamento de progresso
-
-### **2.3 Usuários do Sistema**
-
-* **Jogadores iniciantes**
-* **Jogadores avançados**
-* **Testadores (QA)**
-* **Desenvolvedores**
-
-### **2.4 Restrições**
-
-* O jogo deve rodar em hardware mínimo pré-definido.
-* Deve seguir boas práticas de modelagem e otimização 3D.
+* Participantes entendem o objetivo e a dinâmica.
+* Todos sabem como contribuir.
 
 ---
 
-## **3. Requisitos Funcionais**
+## **5 – 10 min | Aquecimento (Warm-up)**
 
-### **RF01 – Controle do Personagem**
+### 🎙️ *Atividades*
 
-O sistema deve permitir ao jogador mover o personagem em todas as direções, pular, correr e realizar ações básicas.
+* Pergunta rápida ao grupo:
+  **“Qual é a atividade mais importante do seu setor que não pode falhar?”**
+* Responder em post-its (qualquer cor), sem ordem.
+* Expor na parede para criar engajamento.
 
-### **RF02 – Câmera 3D**
+### 🎯 *Resultado*
 
-A câmera deve acompanhar o personagem ou ser controlada pelo jogador através do mouse ou analógico.
-
-### **RF03 – Interação com Objetos**
-
-O sistema deve permitir que o jogador colete itens, abra portas, ative botões e interaja com elementos do ambiente.
-
-### **RF04 – Sistema de Inventário**
-
-O sistema deve armazenar, adicionar e remover itens coletados pelo jogador.
-
-### **RF05 – Combate**
-
-O sistema deve permitir que o jogador ataque, defenda-se e utilize habilidades quando em combate.
-
-### **RF06 – Inteligência Artificial (NPCs)**
-
-NPCs devem realizar ações como patrulhar, dialogar e reagir à presença do jogador.
-
-### **RF07 – Inimigos e IA Hostil**
-
-Inimigos devem ser capazes de detectar o jogador, perseguir e atacar.
-
-### **RF08 – Sistema de Missões**
-
-O jogo deve apresentar objetivos ao jogador, registrar progresso e desbloquear novas missões.
-
-### **RF09 – HUD e Painéis**
-
-A interface deve exibir vida, energia, minimapa, itens e notificações.
-
-### **RF10 – Sistema de Física**
-
-O sistema deve aplicar física realista ao personagem, objetos e ambiente.
-
-### **RF11 – Colisões**
-
-O jogo deve detectar colisões entre personagem, objetos, inimigos e cenários.
-
-### **RF12 – Áudio 3D**
-
-O sistema deve reproduzir sons de acordo com a distância e direção do jogador.
-
-### **RF13 – Sistema de Salvamento**
-
-O jogador deve poder salvar e carregar seu progresso.
-
-### **RF14 – Menu Principal e Ajustes**
-
-O jogo deve apresentar menu inicial, opções de áudio, vídeo, controles e saída.
-
-### **RF15 – Spawn de Objetos e Inimigos**
-
-O sistema deve permitir o surgimento de inimigos e itens conforme eventos do jogo.
+* Quebra-gelo.
+* Participantes começam a pensar em fluxo de valor.
 
 ---
 
-## **4. Requisitos Não Funcionais**
+## **10 – 20 min | Exploração Caótica (Geração de Eventos)**
 
-### **RNF01 – Desempenho**
+### 🎙️ *Atividades*
 
-O jogo deve manter no mínimo 30 FPS em hardware mínimo.
+* Cada participante escreve **eventos importantes do seu setor** em post-its laranjas.
+* Todos postam **sem ordem** na parede.
+* Exemplos sugeridos pelo facilitador:
 
-### **RNF02 – Usabilidade**
+  * *Produto Recebido no Depósito*
+  * *Preço Atualizado na Gôndola*
+  * *Item Selecionado pelo Cliente*
+  * *Produto Pesado no Hortifrúti*
+  * *Item Registrado no Caixa*
+  * *Pagamento Aprovado*
+  * *Estoque Mínimo Atingido*
 
-A interface deve ser intuitiva e clara para o usuário.
+### 🎯 *Resultado*
 
-### **RNF03 – Confiabilidade**
-
-O sistema deve evitar falhas e permitir recuperação através do sistema de save.
-
-### **RNF04 – Portabilidade**
-
-O jogo deve rodar em Windows e plataformas adicionais opcionais (Linux, consoles).
-
-### **RNF05 – Segurança**
-
-Dados de save devem ser protegidos contra corrupção.
-
-### **RNF06 – Escalabilidade**
-
-O sistema deve permitir adição futura de mapas, personagens e missões.
+* Grande volume de eventos reais do dia a dia.
+* Visão ampla de como o supermercado funciona.
 
 ---
 
-## **5. Diagramas e Modelos (Opcional)**
+## **20 – 30 min | Organização em Linha do Tempo**
 
-* Diagrama de Casos de Uso
-* Diagrama de Classes
-* Fluxo de Missões
-* Arquitetura do Sistema
+### 🎙️ *Atividades*
 
-*(Pode ser adicionado mediante solicitação.)*
+* O grupo reorganiza todos os eventos **cronologicamente**, da esquerda (início do processo) para a direita (final).
+* O facilitador ajuda perguntando:
 
----
+  * “O que acontece antes disso?”
+  * “O que depende desse evento?”
+* Remover duplicações.
+* Criar um esboço do fluxo:
+  **Compras → Recebimento → Armazenagem → Reposição → Cliente Escolhe → Checkout → Pagamento**
 
-## **6. Critérios de Aceitação**
+### 🎯 *Resultado*
 
-* O jogador consegue iniciar, jogar e finalizar uma missão.
-* Toda interação essencial deve funcionar sem falhas.
-* O jogo deve carregar e salvar dados corretamente.
-* O combate deve ser funcional e equilibrado.
-* O desempenho mínimo deve ser atendido.
+* Linha do tempo consistente representando o fluxo de valor do supermercado.
 
 ---
 
-## **7. Versões do Documento**
+## **30 – 35 min | Identificação dos Atores e Sistemas**
 
-* **v1.0** – Documento inicial gerado
+### 🎙️ *Atividades*
 
----
+* Participantes criam post-its **azuis** indicando:
 
-# 🕒 Workshop: Event Storming Big Picture – Game 3D "Aventuras no Mundo XYZ"
-**Objetivo:** Mapear o fluxo principal de gameplay e as reações do sistema para validar os Requisitos Funcionais (RF) e identificar gargalos (Hot Spots).
-**Duração:** 50 Minutos.
-**Participantes Sugeridos:** Game Designers, Devs (Gameplay & Engine), QA, Stakeholders.
+  * Pessoas (Açougueiro, Repositor, Gerente de Estoque, Cliente, Caixa…)
+  * Sistemas (API de Pagamento, Sistema do Fornecedor, Balança do Hortifrúti…)
+* Posicionar ao redor dos eventos que eles influenciam.
 
----
+### 🎯 *Resultado*
 
-## 🛠️ Preparação (Pré-Workshop)
-Antes de iniciar o cronômetro, certifique-se de que a **Legenda** esteja visível para todos (no quadro branco ou ferramenta online como Miro/Mural).
-
-**Legenda do Domínio (Conforme fornecido):**
-* 🟧 **Evento (Laranja):** Fato ocorrido (Verbo no passado). Ex: `Inimigo Derrotado`.
-* 🟦 **Comando (Azul):** Ação/Intenção do usuário ou sistema. Ex: `Atacar Inimigo`.
-* 🟨 **Ator (Amarelo):** Quem executa (Jogador, NPC, Sistema de Física).
-* 🟩 **Read Model (Verde):** O que é visto na tela (HUD, Inventário).
-* 🟪 **Política (Roxo):** Regra de negócio/lógica (Se X, então Y).
-* 🔴 **Hot Spot (Vermelho):** Risco, dúvida ou problema.
-
-
+* Clareza sobre quem faz o quê.
+* Integração entre setores fica visível.
 
 ---
 
-## 🚀 Etapas do Workshop (Cronograma)
+## **35 – 40 min | Storytelling do Fluxo Completo**
 
-### 1. Contextualização Rápida (00:00 - 05:00)
-**Ação:** O facilitador lê o **Escopo (1.2)** e os **Objetivos**.
-**Foco:** Deixar claro que estamos modelando a experiência de "Explorar -> Combater -> Evoluir".
-**Instrução:** "Não vamos debater código agora (classes C++ ou C#), vamos debater o *comportamento* do jogo."
+### 🎙️ *Atividades*
 
-### 2. Chaotic Exploration: Eventos de Domínio (05:00 - 15:00)
-**Técnica:** Brainstorming Silencioso + Colagem.
-**Instrução:** "Baseado no SRS, escrevam em post-its laranjas tudo o que acontece no jogo **no passado**. O que o sistema registra?"
+* Um voluntário percorre a linha do tempo explicando o fluxo.
+* Facilitador incentiva perguntas:
 
-**Mapeamento com a SRS:**
-* *Jogadores:* `Jogo Iniciado`, `Missão Aceita` (RF08), `Item Coletado` (RF03), `Dano Recebido`.
-* *Sistema:* `Colisão Detectada` (RF11), `Jogo Salvo` (RF13), `Inimigo Spawnado` (RF15).
+  * “Isso sempre acontece assim?”
+  * “O que dá errado aqui?”
+  * “E quando falta produto?”
+* O processo ganha validação colaborativa.
 
-> **Dica do Facilitador:** Se alguém escrever "Atacar", corrija para "Dano Causado" ou "Ataque Realizado". Eventos são fatos consumados.
+### 🎯 *Resultado*
 
-### 3. Enforce the Timeline: Ordenação Temporal (15:00 - 25:00)
-**Ação:** Organizar os post-its laranjas em uma linha do tempo lógica da esquerda para a direita.
-**Estrutura da Raia (Gameplay Loop):**
-1.  **Start:** Menu / Carregamento (RF14).
-2.  **Exploração:** Movimentação e Física (RF01, RF10).
-3.  **Encontro:** Detecção de Inimigo (RF07).
-4.  **Combate:** Troca de danos (RF05).
-5.  **Recompensa:** Loot / Inventário (RF04).
-6.  **Desfecho:** Save / Missão Concluída.
-
-
-
-![Image of game loop flow chart](image/game_loop.png)
-
-### 4. Comandos e Atores (25:00 - 35:00)
-**Instrução:** "O que gatilha esses eventos? Quem faz isso acontecer?"
-**Ação:** Adicionar post-its **Azuis (Comandos)** e **Amarelos (Atores)** antes dos eventos.
-
-* **Exemplo de Fluxo (Combate - RF05):**
-    * 🟨 **Ator:** Jogador
-    * 🟦 **Comando:** `Pressionar Botão de Ataque`
-    * 🟧 **Evento:** `Animação de Ataque Iniciada` -> `Colisão Detectada` (RF11) -> `Dano Calculado`.
-
-* **Exemplo de Fluxo (IA - RF06):**
-    * 🟨 **Ator:** NPC Hostil
-    * 🟦 **Comando:** `Detectar Jogador` (Trigger automático)
-    * 🟧 **Evento:** `Modo Perseguição Ativado`.
-
-### 5. Políticas e Modelos de Leitura (35:00 - 45:00)
-**Instrução:** "Como o jogador sabe o que está acontecendo (Read Model)? E quais regras governam isso (Políticas)?"
-**Ação:** Adicionar post-its **Verdes** e **Roxos**.
-
-* **RF09 (HUD):** Após o evento `Dano Recebido`, adicionamos o Read Model 🟩 `Barra de Vida Atualizada`.
-* **RF04 (Inventário):** Entre o comando `Coletar Item` e o evento `Item Adicionado`, existe uma Política 🟪: *"O inventário possui espaço?"*.
-* **RNF01 (Desempenho):** Política 🟪 *"Se houver muitos inimigos (RF15), aplicar culling ou reduzir IA"* (Link com o texto do processo de "Deus 1 e Deus 2").
-
-### 6. Review e Hot Spots (45:00 - 50:00)
-**Ação:** Caminhar do início ao fim do fluxo e marcar problemas com post-its **Vermelhos** 🔴.
-
-**Perguntas de Verificação (Baseadas nos Critérios de Aceitação):**
-1.  *Onde o jogo pode travar (Crash)?* (RNF03)
-2.  *O fluxo de Missão (RF08) está claro ou o jogador fica perdido?*
-3.  *Existe conflito entre a Física (RF10) e o Combate (RF05)?*
-4.  *O Save (RF13) salva o estado exato da missão ou apenas a posição?*
+* Refinamento da linha do tempo.
+* Compreensão compartilhada do processo completo.
 
 ---
 
-## Exemplo Prático do Resultado Final (Trecho do Quadro)
+## **40 – 45 min | Identificação de Hotspots (Problemas)**
 
-Aqui está como um trecho do quadro deve se parecer ao final dos 50 minutos, focado no **Combate (RF05)** e **Física (RF10)**:
+### 🎙️ *Atividades*
 
-| Ator 🟨 | Comando 🟦 | Política 🟪 | Evento 🟧 | Read Model 🟩 |
-| :--- | :--- | :--- | :--- | :--- |
-| **Jogador** | `Mover para frente` | *Física Realista (RF10)* | `Posição Atualizada` | `Câmera Ajustada` (RF02) |
-| **Inimigo** | `Detectar Jogador` | *Raio de Visão < 10m* | `Jogador Detectado` | `Ícone de Alerta no HUD` |
-| **Jogador** | `Atacar` | *Cooldown da Arma zerado?* | `Dano Causado` | `Barra de Vida Inimigo -10` |
-| **Sistema** | `Verificar Vida` | *Se Vida <= 0* | `Inimigo Morto` | `Loot Dropado` (RF15) |
+* Participantes marcam eventos críticos com post-its vermelhos.
+* Tipos de hotspots a considerar:
+
+  * Falhas (ex: *Preço divergente no caixa*)
+  * Incertezas (ex: *Validade do produto não registrada*)
+  * Riscos (ex: *API de fornecedor lenta*)
+  * Ambiguidades (ex: *Quem decide o preço final?*)
+
+### 🎯 *Resultado*
+
+* Mapa visual com pontos sensíveis para o software resolver.
 
 ---
+
+## **45 – 50 min | Priorização e Encerramento**
+
+### 🎙️ *Atividades*
+
+* Votação rápida para escolher os **3 hotspots mais importantes**.
+* Facilitador conclui com:
+
+  1. O que foi aprendido.
+  2. Próximos passos:
+
+     * Digitalizar o mapa.
+     * Preparar workshop de detalhamento (Event Storming de Processo).
+     * Definir possíveis **Contextos Delimitados** (Vendas, Compras, Estoque…).
+
+### 🎯 *Resultado*
+
+* Entendimento claro do que deve ser resolvido primeiro.
+* Entregável concreto para a equipe de desenvolvimento.
+
+---
+
+# 📌 **Saída Final do Workshop**
+
+* Linha do tempo completa do fluxo do supermercado.
+* Lista de eventos de domínio.
+* Identificação dos atores e sistemas externos.
+* Hotspots priorizados.
+* Base inicial para definir contextos delimitados (módulos do software).
+
+---
+
+# 🛒 **Exemplos de Eventos por Área (para facilitar o workshop)**
+
+### **📍 Compras**
+
+* Pedido de Compra Emitido
+* Cotação Recebida
+* Mercadoria Despachada pelo Fornecedor
+
+### **📍 Recebimento / Depósito**
+
+* Caminhão Chegou
+* Nota Fiscal Validada
+* Produto Conferido
+* Produto Armazenado
+
+### **📍 Loja / Gôndolas**
+
+* Produto Reposto
+* Estoque Mínimo Atingido
+* Produto Vencido
+
+### **📍 Cliente**
+
+* Cliente Procurou Setor
+* Item Selecionado
+* Item Colocado no Carrinho
+
+### **📍 Checkout / Vendas**
+
+* Item Registrado
+* Desconto Aplicado
+* Pagamento Aprovado
+* Venda Finalizada
+
+---
+
 
