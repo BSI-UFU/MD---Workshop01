@@ -144,13 +144,3 @@
 
 ---
 
-# 🔥 Quer uma versão ainda mais visual?
-
-Posso gerar:
-✅ O painel em **layout Kanban**
-✅ Versão com **“sticky notes ASCII individuais”** para arrastar no Miro
-✅ Um **arquivo CSV** para *importação automática* de dezenas de post-its no Miro
-✅ Versão com **frames arredondados**
-✅ Versão **colorida** (simulando as cores no texto)
-
-Só pedir!
