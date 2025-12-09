@@ -14,7 +14,7 @@ Sabe-se que o objetivo de todo negócio é **obter lucro**, e para isso todas as
 
 ## Layout do Supermercado
 
-![Layout do Supermercado](image/layout_supermercado.md)
+[Layout do Supermercado](image/layout_supermercado.md)
 
 Essa modelagem ajudará a identificar eventos de domínio, problemas, riscos e oportunidades de melhoria, fornecendo uma base sólida para que o novo software seja alinhado às necessidades reais do supermercado.
 
@@ -195,6 +195,8 @@ Mapear o fluxo de valor do supermercado (vendas, compras, estoques e informaçõ
 * Identificação dos atores e sistemas externos.
 * Hotspots priorizados.
 * Base inicial para definir contextos delimitados (módulos do software).
+
+[Painel Ilustrativo do Event Storming Big Picture](painel_supermercado.md)
 
 ---
 
