@@ -196,7 +196,7 @@ Mapear o fluxo de valor do supermercado (vendas, compras, estoques e informaçõ
 * Hotspots priorizados.
 * Base inicial para definir contextos delimitados (módulos do software).
 
-[Painel Ilustrativo do Event Storming Big Picture](painel_supermercado.md)
+[Painel Ilustrativo do Event Storming Big Picture](./Painel_supermercado.md)
 
 ---
 
